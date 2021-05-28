@@ -78,12 +78,7 @@ class RealDownloadMiddleware(BaseDownloadMiddleware):
 
         """
         if super(RealDownloadMiddleware, self).is_download_response(response):
-            try:
-                return response.file.url or response.file.name
-            except AttributeError:
-                return False
-            else:
-                return True
+            return hasattr(response.file, 'url') or hasattr(response.file, 'name')
         return False
 
 
